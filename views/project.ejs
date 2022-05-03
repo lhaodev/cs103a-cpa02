@@ -1,0 +1,37 @@
+<div class="bg-light border border-primary p-3 rounded m-3">
+    <h1 class="display-4 text-center">Add a new project</h1>
+    <p class="lead text-center"><%= items.length %>  items for <%= user['username'] %> in total</p>
+</div>
+<hr>
+<ol>
+    <% for (item of items){%>
+        <li class="mb-2">          
+            <b><%= item.projectName%>:</b><i><%= item.description %></i>
+            <% if (item.completed) {%>
+                <a href="/project/completed/false/<%= item._id%>">  Done</a>
+            <% } else {%>
+                <a href="/project/completed/true/<%= item._id%>"> In Process</a>
+            <% } %>
+            <br>
+            <%= item.createdAt %> 
+            <a href="/project/delete/<%= item._id%>">(delete)</a>
+        </li>
+    <% }%>
+</ol>
+<hr>
+
+
+
+<form method="post" action="/project/add">
+    Project Name:<input type="text" name="projectName"><br>
+    Description:<input type="text" name="description"><br>
+    Team Leader:<input type="text" name="teamLeader"><br>
+    Coding Language:<input type="text" name="codingLanguage"><br>
+    <input type="submit" value="Save Item"><br>
+</form>
+<hr>
+<h2 class="display-10 text-center">Click the link below to view details.</h1>
+    <ul>
+        <li><a href="/project/true">Completed List</a></li>
+        <li><a href="/project/false">In progress List</a></li>
+      </ul>

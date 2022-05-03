@@ -21,6 +21,7 @@ const axios = require("axios")
 const ToDoItem = require("./models/ToDoItem")
 const Course = require('./models/Course')
 const Schedule = require('./models/Schedule')
+const Project = require('./models/Project')
 
 // *********************************************************** //
 //  Loading JSON datasets
@@ -34,8 +35,8 @@ const courses = require('./public/data/courses20-21.json')
 
 const mongoose = require( 'mongoose' );
 //const mongodb_URI = 'mongodb://localhost:27017/cs103a_todo'
-const mongodb_URI = 'mongodb+srv://cs_sj:BrandeisSpr22@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-
+//const mongodb_URI = 'mongodb+srv://cs_sj:BrandeisSpr22@cluster0.kgugl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongodb_URI = 'mongodb+srv://luhao1125:Ygsjy123@cluster0.gmijy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 mongoose.connect( mongodb_URI, { useNewUrlParser: true, useUnifiedTopology: true } );
 // fix deprecation warnings
 mongoose.set('useFindAndModify', false); 
@@ -156,6 +157,10 @@ app.get('/todo',
   }
   )
 
+
+
+
+
   app.post('/todo/add',
   isLoggedIn,
   async (req,res,next) => {
@@ -165,6 +170,7 @@ app.get('/todo',
       const createdAt = new Date(); // get the current date/time
       let data = {title, description, userId, createdAt,} // create the data object
       let item = new ToDoItem(data) // create the database object (and test the types are correct)
+      console.log(item);
       await item.save() // save the todo item in the database
       res.redirect('/todo')  // go back to the todo page
     } catch (e){
@@ -199,6 +205,82 @@ app.get('/todo',
     }
   }
 )
+
+app.get('/project',
+  isLoggedIn,   // redirect to /login if user is not logged in
+  async (req,res,next) => {
+    try{
+      let userId = res.locals.user._id;  // get the user's id
+      let items = await Project.find({userId:userId}); // lookup the user's todo items
+      res.locals.items = items;  //make the items available in the view
+      res.render("project");  // render to the toDo page
+    } catch (e){
+      next(e);
+    }
+  }
+  )
+
+
+  app.post('/project/add',
+  isLoggedIn,
+  async (req,res,next) => {
+    try{
+      const {projectName, description,teamLeader, codingLanguage} = req.body; // get title and description from the body
+      const userId = res.locals.user._id; // get the user's id
+      const createdAt = new Date(); // get the current date/time
+      let data = {projectName, description,teamLeader, codingLanguage, userId, createdAt,} // create the data object
+      let item = new Project(data) // create the database object (and test the types are correct)
+      console.log(item);
+      await item.save() // save the todo item in the database
+      res.redirect('/project')  // go back to the todo page
+    } catch (e){
+      next(e);
+    }
+  }
+  )
+
+  app.get("/project/delete/:itemId",
+    isLoggedIn,
+    async (req,res,next) => {
+      try{
+        const itemId=req.params.itemId; // get the id of the item to delete
+        await Project.deleteOne({_id:itemId}) // remove that item from the database
+        res.redirect('/project') // go back to the todo page
+      } catch (e){
+        next(e);
+      }
+    }
+  )
+
+  app.get("/project/completed/:value/:itemId",
+  isLoggedIn,
+  async (req,res,next) => {
+    try{
+      const itemId=req.params.itemId; // get the id of the item to delete
+      const completed = req.params.value=='true';
+      await Project.findByIdAndUpdate(itemId,{completed}) // remove that item from the database
+      res.redirect('/project') // go back to the todo page
+    } catch (e){
+      next(e);
+    }
+  }
+)
+
+  app.get("/project/:completed/", async (req, res, next) => {
+    try {
+      
+      const { completed } = req.params;
+      console.log("req.params" + completed);
+      //const completed = req.params.value=='true';
+      const completelist = await Project.find({ completed });
+      console.log(completelist);
+      res.locals.completelist = completelist;
+      res.render("completelist");
+    } catch (e) {
+      next(e);
+    }
+  });
+
 
 /* ************************
   Functions needed for the course finder routes

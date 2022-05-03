@@ -1,0 +1,23 @@
+<p>Here is a list of projects.</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr><td>Project Name</td><td>Description</td><td>Team Leader</td><td>Coding Language</td><td>Completed or not</td><td>To delete?</td></tr>
+</thead>
+  <tbody>
+    <% for (project of completelist ){%>
+    <tr>
+        <td><%= project.projectName %></td>
+        <td><%= project.description %></td>
+        <td><%= project.teamLeader %></td>
+        <td><%= project.codingLanguage %></td> 
+        <td><%= project.completed%></td> 
+        <td><% if (project.completed) {%>
+          <a href="/project/completed/false/<%= project._id%>">  Done</a>
+      <% } else {%>
+          <a href="/project/completed/true/<%= project._id%>"> In Process</a>
+      <% } %></td> 
+      <td><a href="/project/delete/<%= project._id%>">(delete)</a></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
