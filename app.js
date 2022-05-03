@@ -481,9 +481,9 @@ app.use(function(err, req, res, next) {
 // *********************************************************** //
 //Here we set the port to use between 1024 and 65535  (2^16-1)
 //const port = "5000";
-app.set("port", port);
-const port = process.env.PORT || "5000";
 
+const port = process.env.PORT || "5000";
+app.set("port", port);
 // and now we startup the server listening on that port
 const http = require("http");
 const { reset } = require("nodemon");
