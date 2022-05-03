@@ -10,7 +10,7 @@
         <td><%= project.description %></td>
         <td><%= project.teamLeader %></td>
         <td><%= project.codingLanguage %></td> 
-        <td><%= project.completed%></td> 
+        <!-- <td><%= project.completed%></td>  -->
         <td><% if (project.completed) {%>
           <a href="/project/completed/false/<%= project._id%>">  Done</a>
       <% } else {%>
