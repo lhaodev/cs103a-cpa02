@@ -1,26 +1,48 @@
-# CS103a Express App Demo
+## Table of Contents
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [Technologies](#Technologies)
+* [Repository](#Repository)
+* [Video](#Video)
 
-This is a starter project which has a simple authentication module 
-and provides access to a mongoose database in the cloud.
 
 ## Installation
-Download the project from github and download nodejs and npm from https://nodejs.org
-and cd into the folder
 
-Install the packages with
-``` bash
-npm install
-```
-Start the project with
-``` bash
-node app.js
-```
-or install nodemon (the node monitoring app) with
-``` bash
-npm install -g nodemon
-```
-and start the project with
-``` bash
-nodemon
-```
+* Install node.js to computer, if not already present.
+    * Node.js can be installed from [here](https://nodejs.org/en/)
+* Copy all the application files locally to one's machine.
+* In a terminal window where you copied the files, install 'mongoose', 'bcrypt', 'connect-flash', 'express', 'cookie-parser' and 'ejs'.    These installations are accomplished by performing the following command: 
+
+    * **npm install**
+
+    
+
+## Usage
+
+This application requires Node.js to be installed.  It also requires the user to have 'mongoose', 'bcrypt', 'connect-flash', 'express', 'cookie-parser' and 'ejs' packages installed.  (See [Installation](#installation) section.)  Once these items have been installed, the user can launch the application from a terminal window as follows:
+
+    * **bash startup.sh**
+
+Followed by entering https://still-river-17303.herokuapp.com/ in your browser URL line.  
+
+
+## Technologies
+
+* Mongoose
+* Express
+* Node.js
+* bcrypt
+* connect-flash
+* cookie-parser
+* ejs
+* heroku
+
+## Repository
+
+Direct link to repository:  https://github.com/lhaodev/cs103a-cpa02
+Direct link to deployed application: https://still-river-17303.herokuapp.com/
+
+
+## Video
+Direct link to video walkthrough: 
 
