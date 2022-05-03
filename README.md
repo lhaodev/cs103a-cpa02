@@ -44,5 +44,5 @@ Direct link to deployed application: https://still-river-17303.herokuapp.com/
 
 
 ## Video
-Direct link to video walkthrough: 
+Direct link to video walkthrough: https://drive.google.com/file/d/1J6XLbzjQs_iq7bqW_fuCXMvLqEgRkPvr/view?usp=sharing
 
